@@ -4,7 +4,7 @@ class RoutesTest < TestJavalos
 
   def test_get_root
     result = get "/"
-    assert_equals 200, result.code
+    assert_equals "200", result.code
   end
 
   private

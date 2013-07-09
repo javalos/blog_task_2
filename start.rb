@@ -6,6 +6,6 @@ end
  
 include WEBrick
 
-server = HTTPServer.new(:Port=>2000)
+server = HTTPServer.new(:Port=>2000, :DocumentRoot=>'./public')
 trap("INT"){ server.shutdown }
 server.start
