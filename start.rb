@@ -6,7 +6,6 @@ end
  
 include WEBrick
 
-port = 2000
 server = HTTPServer.new(:Port=>2000)
 trap("INT"){ server.shutdown }
 server.start
