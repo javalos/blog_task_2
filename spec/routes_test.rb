@@ -7,6 +7,11 @@ class RoutesTest < TestJavalos
     assert_equals "200", result.code
   end
 
+  def test_get_posts
+    result = get "/posts"
+    assert_equals "200", result.code
+  end
+
   private
 
   def get path
