@@ -8,7 +8,7 @@ class PostSource
     @source = source
     doc = Document.new source
     @posts = Array.new
-    XPath.each(@doc, "/posts/post") do |post|
+    XPath.each(doc, "/posts/post") do |post|
       content = post.elements["content"].text
       @posts << Post.new(content)
     end
