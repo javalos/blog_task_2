@@ -1,5 +1,5 @@
 class PostTest < TestJavalos
-  test_source = "<posts><post><content>Post 1</content></post></posts>"
+  TEST_SOURCE = "<posts><post><content>Post 1</content></post></posts>"
 
   def test_initialize
     post = Post.new("")
@@ -7,9 +7,9 @@ class PostTest < TestJavalos
   end
 
   def test_post_source
-    post = Post.new(test_source)
+    post = Post.new(TEST_SOURCE)
     assert_not_null post.source
-    assert_equals test_source, post.source
+    assert_equals TEST_SOURCE, post.source
   end
 
   def test_post_load
