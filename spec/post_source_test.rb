@@ -23,6 +23,9 @@ class PostSourceTest < TestJavalos
     assert_not_null posts
     assert_equals 3, posts.length
     posts.each { |post| assert_equals true, post.instance_of?(Post)  }
+    assert_equals "Post 1", posts[0].content
+    assert_equals "Post 2", posts[1].content
+    assert_equals "Post 3", posts[2].content
   end
 
 end
