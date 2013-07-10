@@ -1,6 +1,6 @@
 require 'net/http'
 
-class RoutesTest < TestJavalos
+class PostControllerTest < TestJavalos
 
   def test_get_root
     result = get "/"
