@@ -12,4 +12,10 @@ class PostSourceTest < TestJavalos
     assert_equals TEST_SOURCE, post_source.source
   end
 
+  def test_post_all
+    post_source = PostSource.new(TEST_SOURCE)
+    posts = post_source.all
+    assert_not_null posts
+  end
+
 end
