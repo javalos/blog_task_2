@@ -1,0 +1,15 @@
+class PostSourceTest < TestJavalos
+  TEST_SOURCE = "<posts><post><content>Post 1</content></post></posts>"
+
+  def test_initialize
+    post_source = PostSource.new("")
+    assert_not_null post_source.source
+    assert_not_null post_source
+  end
+
+  def test_post_source
+    post_source = PostSource.new(TEST_SOURCE)
+    assert_equals TEST_SOURCE, post_source.source
+  end
+
+end
