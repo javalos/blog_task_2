@@ -5,6 +5,6 @@ class PostSource
   end
 
   def all
-    ["Post 1", "Post 2", "Post 3"]
+    [Post.new, Post.new, Post.new]
   end
 end
