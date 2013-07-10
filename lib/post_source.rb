@@ -3,4 +3,8 @@ class PostSource
   def initialize source
     @source = source
   end
+
+  def all
+    []
+  end
 end
