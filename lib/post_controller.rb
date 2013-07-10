@@ -1,4 +1,11 @@
 class PostController < WEBrick::HTTPServlet::AbstractServlet
+  TEST_SOURCE = 
+  "<posts>
+    <post><content>Post 1</content></post>
+    <post><content>Post 2</content></post>
+    <post><content>Post 3</content></post>
+  </posts>"
+
   def do_GET(request, response)
     status, content_type, body = get_posts(request)
 
@@ -8,7 +15,13 @@ class PostController < WEBrick::HTTPServlet::AbstractServlet
   end
 
   def get_posts(request)
-    html   = "<html><body>Posts:</body></html>"
+    post_source = PostSource.new(TEST_SOURCE)
+    posts = post_source.all
+    html = "<html><body><div><h1>Posts:</h1>"
+    posts.each do |post|
+      html = html + "<p>#{post.content}</p>"
+    end
+    html = html + "</div></body></html>"
     return 200, "text/html", html
   end
 end
