@@ -32,7 +32,7 @@ class PostSourceTest < TestJavalos
     post_source = PostSource.new(TEST_SOURCE)
     posts = post_source.all
     count_before = posts.count
-    post_source.create Post.new("Another post")
+    post_source.add Post.new("Another post")
     posts = post_source.all
     assert_equals count_before + 1, posts.count
   end
