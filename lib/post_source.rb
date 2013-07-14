@@ -6,8 +6,12 @@ class PostSource
 
   def initialize source
     @source = source
-    @doc = Document.new source
     @posts = Array.new
+    load_source
+  end
+
+  def load_source
+    @doc = Document.new @source
     XPath.each(@doc, "/posts/post") do |post|
       content = post.elements["content"].text
       @posts << Post.new(content)
@@ -20,11 +24,15 @@ class PostSource
 
   def add post
     @posts << post
+    add_to_source post
+    save
+  end
+
+  def add_to_source post
     posts_element = @doc.root
     post_element = Element.new("post", posts_element)
     content_element = Element.new("content", post_element)
     content_element.text = post.content
-    save
   end
 
   def save
