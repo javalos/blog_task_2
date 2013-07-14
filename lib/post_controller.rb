@@ -16,10 +16,7 @@ class PostController < WEBrick::HTTPServlet::AbstractServlet
 
   def do_POST(request, response)
     status, content_type, body = create_post(request)
-
-    response.status = status
-    response['Content-Type'] = content_type
-    response.body = body
+    do_GET(request, response)
   end
 
   def get_posts
@@ -29,7 +26,11 @@ class PostController < WEBrick::HTTPServlet::AbstractServlet
     posts.each do |post|
       html = html + "<p>#{post.content}</p>"
     end
-    html = html + "</div></body></html>"
+    form = "<form action='/posts' method='post'>
+            Post: <input type='text' name='post'>
+            <input type='submit' value='Create'>
+            </form>"
+    html = html + form + "</div></body></html>"
     return 200, "text/html", html
   end
 
