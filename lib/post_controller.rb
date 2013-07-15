@@ -1,8 +1,8 @@
 class PostController < WEBrick::HTTPServlet::AbstractServlet
   
-  def initialize(server, post_source)
+  def initialize(server, config)
     super(server)
-    @post_source = post_source
+    @post_source = config.source
   end
 
   def do_GET(request, response)
