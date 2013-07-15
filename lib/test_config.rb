@@ -6,7 +6,7 @@ class TestConfig
   def initialize
     create_test_file
     @port = TestConfig.port
-    @source = PostSource.new(File.new(SOURCE_NAME))
+    @source = PostSource.new(SOURCE_NAME)
     @logger = WEBrick::Log.new("log/test.log")
   end
 
