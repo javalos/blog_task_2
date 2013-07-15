@@ -20,11 +20,11 @@ class PostControllerTest < TestJavalos
   private
 
   def get path
-    Net::HTTP.get_response('localhost', path, 2001)
+    Net::HTTP.get_response('localhost', path, TestConfig.port)
   end
 
   def post path
-    http = Net::HTTP.new('localhost', 2001)
+    http = Net::HTTP.new('localhost', TestConfig.port)
     http.post(path, "")
   end
 end

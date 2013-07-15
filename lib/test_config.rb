@@ -1,24 +1,28 @@
 class TestConfig
-  
+
   SOURCE_NAME = "posts_test.xml"
-  attr_reader :source, :port
+  attr_reader :source, :port, :logger
 
   def initialize
     create_test_file
-    @port = 2001
+    @port = TestConfig.port
     @source = PostSource.new(File.new(SOURCE_NAME))
+    @logger = WEBrick::Log.new("log/test.log")
   end
 
-  def logger
-    WEBrick::Log.new("log/test.log")
+  def self.port
+    2001
   end
 
   def access_log
-    []   
+    [
+      [logger, WEBrick::AccessLog::COMMON_LOG_FORMAT],
+      [logger, WEBrick::AccessLog::REFERER_LOG_FORMAT],
+    ]   
   end
 
   def finalize
-    FileUtils.rm(SOURCE_NAME)
+    delete_test_file
   end
 
   private
@@ -28,5 +32,9 @@ class TestConfig
     test_file = File.new(SOURCE_NAME, "w")
     test_file.write(content)
     test_file.close
+  end
+
+  def delete_test_file
+    FileUtils.rm(SOURCE_NAME)
   end
 end

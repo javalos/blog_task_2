@@ -1,16 +1,12 @@
 class ProductionConfig
-  
+
   SOURCE_NAME = "posts.xml"
-  attr_reader :source, :port
+  attr_reader :source, :port, :logger
 
   def initialize
     @port = 2000
     @source = PostSource.new(File.new(SOURCE_NAME))
-  end
-
-  def logger
-    @logger = WEBrick::Log.new("log/prod.log") if @logger.nil?
-    @logger
+    @logger = WEBrick::Log.new("log/prod.log")
   end
 
   def access_log
