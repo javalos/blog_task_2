@@ -5,7 +5,7 @@ class ProductionConfig
 
   def initialize
     @port = 2000
-    @source = PostSource.new(File.new(SOURCE_NAME))
+    @source = PostSource.new(SOURCE_NAME)
     @logger = WEBrick::Log.new("log/prod.log")
   end
 

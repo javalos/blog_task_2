@@ -6,41 +6,33 @@ class PostSource
 
   def initialize source
     @source = source
-    @posts = Array.new
-    load_source
   end
 
-  def load_source
-    @doc = Document.new @source
-    XPath.each(@doc, "/posts/post") do |post|
-      content = post.elements["content"].text
-      @posts << Post.new(content)
-    end
+  def source_document
+    Document.new File.new(@source)
   end
 
   def all
-    @posts
+    posts = Array.new
+    XPath.each(source_document, "/posts/post") do |post|
+      content = post.elements["content"].text
+      posts << Post.new(content)
+    end
+    posts
   end
 
   def add post
-    @posts << post
-    add_to_source post
-    save
+    posts = source_document.root
+    new_post = Element.new("post", posts)
+    content = Element.new("content", new_post)
+    content.text = post.content
+    save posts
   end
 
-  def add_to_source post
-    posts_element = @doc.root
-    post_element = Element.new("post", posts_element)
-    content_element = Element.new("content", post_element)
-    content_element.text = post.content
-  end
-
-  def save
-    if source.instance_of?(File)
-      formatter = Formatters::Pretty.new
-      formatter.compact = true
-      File.open(@source.path,"w"){|file| file.puts formatter.write(@doc.root,"")}
-    end
+  def save posts
+    formatter = Formatters::Pretty.new
+    formatter.compact = true
+    File.open(@source,"w"){|file| file.puts formatter.write(posts,"")}
   end
 
 end
