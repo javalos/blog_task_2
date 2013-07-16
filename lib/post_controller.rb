@@ -1,24 +1,28 @@
-class PostController < WEBrick::HTTPServlet::AbstractServlet
-  
-  def initialize(server, config)
-    super(server)
-    @post_source = config.source
+class PostController < Controller
+  def index
+    puts "...index"
+    if post?
+      create
+    end
+    get_posts
   end
 
-  def do_GET(request, response)
-    status, content_type, body = get_posts
-
-    response.status = status
-    response['Content-Type'] = content_type
-    response.body = body
+  def new
+    puts "...new"
   end
 
-  def do_POST(request, response)
-    create_post(request)
-    do_GET(request, response)
+  def show
+    puts "...show"
+  end
+
+  def create
+    puts "...create"
+    post = Post.new params["content"]
+    @post_source.add post
   end
 
   def get_posts
+    puts "...get_posts"
     posts = @post_source.all
     html = "<html><body><div><h1>Posts:</h1>"
     posts.each do |post|
@@ -29,11 +33,5 @@ class PostController < WEBrick::HTTPServlet::AbstractServlet
             <input type='submit' value='Create'>
             </form>"
     html = html + form + "</div></body></html>"
-    return 200, "text/html", html
-  end
-
-  def create_post request
-    post = Post.new request.query["content"]
-    @post_source.add post
   end
 end
