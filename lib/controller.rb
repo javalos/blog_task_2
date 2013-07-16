@@ -1,9 +1,9 @@
 class Controller < WEBrick::HTTPServlet::AbstractServlet
-  attr_reader :request, :response, :method, :params
+  attr_reader :request, :response, :method, :params, :source
 
   def initialize(server, config)
     super(server)
-    @post_source = config.source
+    @source = config.source
   end
 
   def do_GET(request, response)

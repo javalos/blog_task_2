@@ -18,12 +18,12 @@ class PostController < Controller
   def create
     puts "...create"
     post = Post.new params["content"]
-    @post_source.add post
+    source.add post
   end
 
   def get_posts
     puts "...get_posts"
-    posts = @post_source.all
+    posts = source.all
     html = "<html><body><div><h1>Posts:</h1>"
     posts.each do |post|
       html = html + "<p>#{post.content}</p>"
