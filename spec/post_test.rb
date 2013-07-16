@@ -4,10 +4,13 @@ class PostTest < TestJavalos
     assert_not_null post
   end
 
-  def test_post_content
-    post_content = "Post content"
-    post = Post.new(post_content)
-    assert_equals post_content, post.content
+  def test_post
+    title = "Post title"
+    content = "Post content"
+    post = Post.new(title, content)
+    assert_equals content, post.content
+    assert_equals title, post.title
+    assert_equals true, post.id > 0
   end
 
 end
