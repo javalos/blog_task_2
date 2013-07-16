@@ -1,14 +1,25 @@
 class PostController < Controller
+  
   def index
     puts "...index"
-    if post?
-      create
+    posts = source.all
+    body = "<h1>Posts:</h1>"
+    posts.each do |post|
+      body = body + "<p>#{post.content}</p>"
     end
-    get_posts
+    body = body + "<a href='/posts/new'>New</a>"
+    html_with body
   end
 
   def new
     puts "...new"
+    body = 
+      "<h1>New Post:</h1>
+      <form action='/posts/create' method='post'>
+        Content: <input type='text' name='content'>
+        <input type='submit' value='Create'>
+      </form>"
+    html_with body
   end
 
   def show
@@ -19,19 +30,6 @@ class PostController < Controller
     puts "...create"
     post = Post.new params["content"]
     source.add post
-  end
-
-  def get_posts
-    puts "...get_posts"
-    posts = source.all
-    body = "<h1>Posts:</h1>"
-    posts.each do |post|
-      body = body + "<p>#{post.content}</p>"
-    end
-    form = "<form action='/posts' method='post'>
-            Post: <input type='text' name='content'>
-            <input type='submit' value='Create'>
-            </form>"
-    html_with body + form
+    redirect_to "/posts"
   end
 end

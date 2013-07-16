@@ -47,6 +47,10 @@ class Controller < WEBrick::HTTPServlet::AbstractServlet
     request.request_method == "POST"
   end
 
+  def redirect_to url
+    response.set_redirect(WEBrick::HTTPStatus::MovedPermanently, url)
+  end
+
   def html_with body
     "<html>
       <body><div>#{body}</div></body>
