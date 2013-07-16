@@ -47,6 +47,12 @@ class Controller < WEBrick::HTTPServlet::AbstractServlet
     request.request_method == "POST"
   end
 
+  def html_with body
+    "<html>
+      <body><div>#{body}</div></body>
+    </html>"
+  end
+
   def is_integer? value
     /^(\d+)$/ =~ value
   end

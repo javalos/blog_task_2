@@ -24,14 +24,14 @@ class PostController < Controller
   def get_posts
     puts "...get_posts"
     posts = source.all
-    html = "<html><body><div><h1>Posts:</h1>"
+    body = "<h1>Posts:</h1>"
     posts.each do |post|
-      html = html + "<p>#{post.content}</p>"
+      body = body + "<p>#{post.content}</p>"
     end
     form = "<form action='/posts' method='post'>
             Post: <input type='text' name='content'>
             <input type='submit' value='Create'>
             </form>"
-    html = html + form + "</div></body></html>"
+    html_with body + form
   end
 end
