@@ -25,6 +25,14 @@ class PostController < Controller
 
   def show
     puts "...show"
+    post = source.find params["id"]
+    if post
+      body = 
+        "<h1>#{post.title}</h1>
+        <p>#{post.content}</p>
+        <p><a href='/posts'>Back</a></p>"
+      html_with body
+    end
   end
 
   def create
