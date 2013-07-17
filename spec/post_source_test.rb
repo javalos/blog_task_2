@@ -48,6 +48,14 @@ class PostSourceTest < TestJavalos
     delete_posts_file
   end
 
+  def test_post_not_found
+    create_posts_file
+    post_source = PostSource.new(SOURCE_NAME)
+    post = post_source.find 200
+    assert_equals post.nil?
+    delete_posts_file
+  end
+
   private
 
   def create_posts_file
