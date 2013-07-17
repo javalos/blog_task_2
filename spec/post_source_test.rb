@@ -40,7 +40,7 @@ class PostSourceTest < TestJavalos
 
   def create_test_file
     content =  
-      "<posts>
+      "<posts next_id='4'>
         <post id='1'><title>Title 1</title><content>Post 1</content></post>
         <post id='2'><title>Title 2</title><content>Post 2</content></post>
         <post id='3'><title>Title 3</title><content>Post 3</content></post>

@@ -28,7 +28,7 @@ class TestConfig
   private
 
   def create_test_file
-    content = "<posts></posts>"
+    content = "<posts next_id='1'></posts>"
     test_file = File.new(SOURCE_NAME, "w")
     test_file.write(content)
     test_file.close
