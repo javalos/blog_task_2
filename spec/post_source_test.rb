@@ -19,7 +19,7 @@ class PostSourceTest < TestJavalos
     assert_not_null posts
     assert_equals 3, posts.length
     posts.each { |post| assert_equals true, post.instance_of?(Post)  }
-    assert_equals "2", posts[1].id
+    assert_equals 2, posts[1].id
     assert_equals "Title 2", posts[1].title
     assert_equals "Post 2", posts[1].content
     delete_test_file
@@ -33,6 +33,7 @@ class PostSourceTest < TestJavalos
     post_source.add Post.new(({content: "Post 4", title: "Title 4"}))
     posts = post_source.all
     assert_equals count_before + 1, posts.count
+    assert_equals 4, posts.last.id
     delete_test_file
   end
 
