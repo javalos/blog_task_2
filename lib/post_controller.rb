@@ -5,7 +5,7 @@ class PostController < Controller
     posts = source.all
     body = "<h1>Posts:</h1>"
     posts.each do |post|
-      body = body + "<p>#{post.content}</p>"
+      body = body + "<p>#{post.title}</p>"
     end
     body = body + "<a href='/posts/new'>New</a>"
     html_with body
@@ -16,6 +16,7 @@ class PostController < Controller
     body = 
       "<h1>New Post:</h1>
       <form action='/posts/create' method='post'>
+        Title: <input type='text' name='title'>
         Content: <input type='text' name='content'>
         <input type='submit' value='Create'>
       </form>"
@@ -28,7 +29,7 @@ class PostController < Controller
 
   def create
     puts "...create"
-    post = Post.new({content: params["content"]})
+    post = Post.new({title: params["title"], content: params["content"]})
     source.add post
     redirect_to "/posts"
   end
