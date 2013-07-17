@@ -1,8 +1,9 @@
 class Post
   attr_accessor :id, :title, :content
-  def initialize(title="", content="")
-    @id = 1
-    @title = title
-    @content = content
+
+  def initialize attributes={}
+    attributes.each do |attr,value|
+      send("#{attr}=", value)
+    end
   end
 end

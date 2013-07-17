@@ -28,7 +28,7 @@ class PostController < Controller
 
   def create
     puts "...create"
-    post = Post.new params["content"]
+    post = Post.new({content: params["content"]})
     source.add post
     redirect_to "/posts"
   end
