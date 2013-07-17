@@ -29,7 +29,7 @@ class Controller < WEBrick::HTTPServlet::AbstractServlet
 
   def parse_path_from_request
     paths = request.path.scan(/\/(\w+)/)
-    raise WEBrick::HTTPStatus::NotFound if paths.empty?
+    page_not_found if paths.empty?
     paths = paths.map { |path|  path.first  }
     if paths.count == 1
       @method = "index"
@@ -39,12 +39,16 @@ class Controller < WEBrick::HTTPServlet::AbstractServlet
     elsif paths.count == 2 and self.respond_to?(paths[1])
       @method = paths[1]
     else
-      raise WEBrick::HTTPStatus::NotFound
+      page_not_found
     end
   end
 
   def post?
     request.request_method == "POST"
+  end
+
+  def page_not_found
+    raise WEBrick::HTTPStatus::NotFound
   end
 
   def redirect_to url

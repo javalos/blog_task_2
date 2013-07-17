@@ -33,10 +33,10 @@ class PostSource
     build_post_from element
   end
 
-  def save posts
+  def save root
     formatter = Formatters::Pretty.new
     formatter.compact = true
-    File.open(@source,"w"){|file| file.puts formatter.write(posts,"")}
+    File.open(@source,"w"){|file| file.puts formatter.write(root,"")}
   end
 
   private
