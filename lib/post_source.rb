@@ -30,7 +30,7 @@ class PostSource
 
   def find id
     element = XPath.first(source_document, "/posts/post[@id='#{id}']")
-    build_post_from element
+    build_post_from element unless element.nil?
   end
 
   def save root

@@ -52,7 +52,7 @@ class PostSourceTest < TestJavalos
     create_posts_file
     post_source = PostSource.new(SOURCE_NAME)
     post = post_source.find 200
-    assert_equals post.nil?
+    assert_equals true, post.nil?
     delete_posts_file
   end
 
