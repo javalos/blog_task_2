@@ -19,9 +19,9 @@ class PostSourceTest < TestJavalos
     assert_not_null posts
     assert_equals 3, posts.length
     posts.each { |post| assert_equals true, post.instance_of?(Post)  }
-    assert_equals "Post 1", posts[0].content
+    assert_equals "2", posts[1].id
+    assert_equals "Title 2", posts[1].title
     assert_equals "Post 2", posts[1].content
-    assert_equals "Post 3", posts[2].content
     delete_test_file
   end
 
@@ -30,7 +30,7 @@ class PostSourceTest < TestJavalos
     post_source = PostSource.new(SOURCE_NAME)
     posts = post_source.all
     count_before = posts.count
-    post_source.add Post.new("Another post")
+    post_source.add Post.new("Title", "Another post")
     posts = post_source.all
     assert_equals count_before + 1, posts.count
     delete_test_file
@@ -41,9 +41,9 @@ class PostSourceTest < TestJavalos
   def create_test_file
     content =  
       "<posts>
-        <post><content>Post 1</content></post>
-        <post><content>Post 2</content></post>
-        <post><content>Post 3</content></post>
+        <post id='1'><title>Title 1</title><content>Post 1</content></post>
+        <post id='2'><title>Title 2</title><content>Post 2</content></post>
+        <post id='3'><title>Title 3</title><content>Post 3</content></post>
       </posts>"
     test_file = File.new(SOURCE_NAME, "w")
     test_file.write(content)
