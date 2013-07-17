@@ -14,33 +14,49 @@ class PostSource
 
   def all
     posts = Array.new
-    XPath.each(source_document, "/posts/post") do |post|
-      new_post = Post.new
-      new_post.id = post.attributes["id"].to_i
-      new_post.title = post.elements["title"].text
-      new_post.content = post.elements["content"].text
-      posts << new_post
+    XPath.each(source_document, "/posts/post") do |element|
+      posts << (build_post_from element)
     end
     posts
   end
 
   def add post
-    posts = source_document.root
-    post.id = posts.attributes["next_id"].to_i
-    new_post = Element.new("post", posts)
-    title = Element.new("title", new_post)
-    content = Element.new("content", new_post)
-    posts.attributes["next_id"] = post.id + 1
-    new_post.attributes["id"] = post.id
-    title.text = post.title
-    content.text = post.content
-    save posts
+    root = source_document.root
+    post.id = root.attributes["next_id"].to_i
+    root.attributes["next_id"] = post.id + 1
+    root.add_element(build_element_from post)
+    save root
+  end
+
+  def find id
+    element = XPath.first(source_document, "/posts/post[@id='#{id}']")
+    build_post_from element
   end
 
   def save posts
     formatter = Formatters::Pretty.new
     formatter.compact = true
     File.open(@source,"w"){|file| file.puts formatter.write(posts,"")}
+  end
+
+  private
+
+  def build_post_from element
+    post = Post.new
+    post.id = element.attributes["id"].to_i
+    post.title = element.elements["title"].text
+    post.content = element.elements["content"].text
+    post
+  end
+
+  def build_element_from post
+    element = Element.new("post")
+    title = Element.new("title", element)
+    content = Element.new("content", element)
+    element.attributes["id"] = post.id
+    title.text = post.title
+    content.text = post.content
+    element
   end
 
 end
