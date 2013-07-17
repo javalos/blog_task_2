@@ -13,7 +13,7 @@ class PostSourceTest < TestJavalos
   end
 
   def test_post_all
-    create_test_file
+    create_posts_file
     post_source = PostSource.new(SOURCE_NAME)
     posts = post_source.all
     assert_not_null posts
@@ -22,11 +22,11 @@ class PostSourceTest < TestJavalos
     assert_equals 2, posts[1].id
     assert_equals "Title 2", posts[1].title
     assert_equals "Post 2", posts[1].content
-    delete_test_file
+    delete_posts_file
   end
 
   def test_post_create
-    create_test_file
+    create_posts_file
     post_source = PostSource.new(SOURCE_NAME)
     posts = post_source.all
     count_before = posts.count
@@ -34,12 +34,23 @@ class PostSourceTest < TestJavalos
     posts = post_source.all
     assert_equals count_before + 1, posts.count
     assert_equals 4, posts.last.id
-    delete_test_file
+    delete_posts_file
+  end
+
+  def test_post_find
+    create_posts_file
+    post_source = PostSource.new(SOURCE_NAME)
+    post = post_source.find 2
+    assert_not_null post
+    assert_equals 2, post.id
+    assert_equals "Title 2", post.title
+    assert_equals "Post 2", post.content
+    delete_posts_file
   end
 
   private
 
-  def create_test_file
+  def create_posts_file
     content =  
       "<posts next_id='4'>
         <post id='1'><title>Title 1</title><content>Post 1</content></post>
@@ -51,7 +62,7 @@ class PostSourceTest < TestJavalos
     test_file.close
   end
 
-  def delete_test_file
+  def delete_posts_file
     FileUtils.rm(SOURCE_NAME)
   end
 end

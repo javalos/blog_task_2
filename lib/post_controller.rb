@@ -5,7 +5,7 @@ class PostController < Controller
     posts = source.all
     body = "<h1>Posts:</h1>"
     posts.each do |post|
-      body = body + "<p>#{post.title}</p>"
+      body = body + "<p>#{post.title} <a href='/posts/#{post.id}'>View</a></p>"
     end
     body = body + "<a href='/posts/new'>New</a>"
     html_with body
