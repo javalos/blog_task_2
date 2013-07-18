@@ -1,5 +1,5 @@
 class Controller < WEBrick::HTTPServlet::AbstractServlet
-  attr_reader :request, :response, :method, :params, :source
+  attr_reader :request, :response, :method, :params, :source, :logger
 
   def initialize(server, config)
     super(server)

@@ -1,7 +1,7 @@
 class PostController < Controller
   
   def index
-    puts "...index"
+    logger.info "...index"
     posts = source.all
     body = "<h1>Posts:</h1>"
     posts.each do |post|
@@ -12,7 +12,7 @@ class PostController < Controller
   end
 
   def new
-    puts "...new"
+    logger.info "...new"
     body = 
       "<h1>New Post:</h1>
       <form action='/posts/create' method='post'>
@@ -24,7 +24,7 @@ class PostController < Controller
   end
 
   def show
-    puts "...show"
+    logger.info "...show"
     post = source.find params["id"]
     if post
       body = 
@@ -36,7 +36,7 @@ class PostController < Controller
   end
 
   def create
-    puts "...create"
+    logger.info "...create"
     post = Post.new({title: params["title"], content: params["content"]})
     source.add post
     redirect_to "/posts"
