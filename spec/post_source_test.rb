@@ -1,6 +1,14 @@
 class PostSourceTest < TestJavalos
   SOURCE_NAME = "post_source_test.xml"
 
+  def before_each
+    create_posts_file
+  end
+
+  def after_each
+    delete_posts_file
+  end
+
   def test_initialize
     post_source = PostSource.new("")
     assert_not_null post_source.source
@@ -13,7 +21,6 @@ class PostSourceTest < TestJavalos
   end
 
   def test_post_all
-    create_posts_file
     post_source = PostSource.new(SOURCE_NAME)
     posts = post_source.all
     assert_not_null posts
@@ -22,11 +29,9 @@ class PostSourceTest < TestJavalos
     assert_equals 2, posts[1].id
     assert_equals "Title 2", posts[1].title
     assert_equals "Post 2", posts[1].content
-    delete_posts_file
   end
 
   def test_post_create
-    create_posts_file
     post_source = PostSource.new(SOURCE_NAME)
     posts = post_source.all
     count_before = posts.count
@@ -34,26 +39,21 @@ class PostSourceTest < TestJavalos
     posts = post_source.all
     assert_equals count_before + 1, posts.count
     assert_equals 4, posts.last.id
-    delete_posts_file
   end
 
   def test_post_find
-    create_posts_file
     post_source = PostSource.new(SOURCE_NAME)
     post = post_source.find 2
     assert_not_null post
     assert_equals 2, post.id
     assert_equals "Title 2", post.title
     assert_equals "Post 2", post.content
-    delete_posts_file
   end
 
   def test_post_not_found
-    create_posts_file
     post_source = PostSource.new(SOURCE_NAME)
     post = post_source.find 200
     assert_equals true, post.nil?
-    delete_posts_file
   end
 
   private
