@@ -1,4 +1,4 @@
 blog_task_1
 ===========
 
-Blog task 1
+Blog posts in Ruby without gems
