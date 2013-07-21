@@ -1,3 +1,4 @@
+require 'test_javalos_runner'
 require 'test_javalos'
 
 Dir['spec/*.rb'].each do |file|
@@ -9,6 +10,7 @@ Thread.new do
   server.start
 end
 
-TestJavalos.run
+test_runner = TestJavalosRunner.new
+test_runner.start
 
 server.shutdown

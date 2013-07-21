@@ -11,24 +11,24 @@ class PostSourceTest < TestJavalos
 
   def test_initialize
     post_source = PostSource.new("")
-    assert_not_null post_source.source
-    assert_not_null post_source
+    j_assert_not_null post_source.source
+    j_assert_not_null post_source
   end
 
   def test_post_source
     post_source = PostSource.new(SOURCE_NAME)
-    assert_equals SOURCE_NAME, post_source.source
+    j_assert_equals SOURCE_NAME, post_source.source
   end
 
   def test_post_all
     post_source = PostSource.new(SOURCE_NAME)
     posts = post_source.all
-    assert_not_null posts
-    assert_equals 3, posts.length
-    posts.each { |post| assert_equals true, post.instance_of?(Post)  }
-    assert_equals 2, posts[1].id
-    assert_equals "Title 2", posts[1].title
-    assert_equals "Post 2", posts[1].content
+    j_assert_not_null posts
+    j_assert_equals 3, posts.length
+    posts.each { |post| j_assert_equals true, post.instance_of?(Post)  }
+    j_assert_equals 2, posts[1].id
+    j_assert_equals "Title 2", posts[1].title
+    j_assert_equals "Post 2", posts[1].content
   end
 
   def test_post_create
@@ -37,23 +37,23 @@ class PostSourceTest < TestJavalos
     count_before = posts.count
     post_source.add Post.new(({content: "Post 4", title: "Title 4"}))
     posts = post_source.all
-    assert_equals count_before + 1, posts.count
-    assert_equals 4, posts.last.id
+    j_assert_equals count_before + 1, posts.count
+    j_assert_equals 4, posts.last.id
   end
 
   def test_post_find
     post_source = PostSource.new(SOURCE_NAME)
     post = post_source.find 2
-    assert_not_null post
-    assert_equals 2, post.id
-    assert_equals "Title 2", post.title
-    assert_equals "Post 2", post.content
+    j_assert_not_null post
+    j_assert_equals 2, post.id
+    j_assert_equals "Title 2", post.title
+    j_assert_equals "Post 2", post.content
   end
 
   def test_post_not_found
     post_source = PostSource.new(SOURCE_NAME)
     post = post_source.find 200
-    assert_equals true, post.nil?
+    j_assert_equals true, post.nil?
   end
 
   private
