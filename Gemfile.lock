@@ -1,9 +1,10 @@
 GEM
+  remote: http://rubygems.org/
   specs:
-    test_javalos (0.0.1)
+    test_javalos (0.0.3)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  test_javalos
+  test_javalos (~> 0.0.3)
