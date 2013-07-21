@@ -3,6 +3,10 @@ blog_task_1
 
 Blog posts using only Ruby libraries.
 
+* User can create new blog posts (title and content).
+* User can see blog posts (titles)
+* User can see blog post (title and content)
+
 Execution
 ----------
 
